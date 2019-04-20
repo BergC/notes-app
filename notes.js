@@ -1,18 +1,14 @@
 const fs = require('fs'),
     chalk = require('chalk');
 
-const getNotes = function() {
-    return 'Your notes...';
-}
+const getNotes = () => 'Your notes...';
 
 // Functionality to add a note.
-const addNote = function(title, body) {
+const addNote = (title, body) => {
     const notes = loadNotes();
 
-    // Ensure a note with that title doesn't already exist.
-    const duplicateNotes = notes.filter(function(note) {
-        return note.title === title;
-    });
+    // Ensure a note with the input title doesn't already exist.
+    const duplicateNotes = notes.filter((note) => note.title === title);
 
     if (duplicateNotes.length === 0) {
         notes.push({
@@ -29,28 +25,26 @@ const addNote = function(title, body) {
 }
 
 // Functionality to remove a note based on a provided title.
-const removeNote = function(title) {
+const removeNote = (title) => {
     const notes = loadNotes();
 
-    const retainedNotes = notes.filter(function(note) {
-        return note.title !== title;
-    });
+    const retainedNotes = notes.filter((note) => note.title !== title);
 
     if (retainedNotes.length < notes.length) {
         console.log(chalk.bgGreen('Note removed!'));
-        saveNotes(retainedNotes); // We only need to save the notes if something is different.
+        saveNotes(retainedNotes); // We only need to save the notes if something has changed (e.g. a note is removed).
     } else {
         console.log(chalk.bgRed('No note found!'));
     }
 }
 
 // Functionality to save a note.
-const saveNotes = function(notes) {
+const saveNotes = (notes) => {
     const dataJSON = JSON.stringify(notes);
     fs.writeFileSync('notes.json', dataJSON);
 }
 
-const loadNotes = function() {
+const loadNotes = () => {
     try {
         const dataBuffer = fs.readFileSync('notes.json');
         const dataJSON = dataBuffer.toString();
