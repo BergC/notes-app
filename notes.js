@@ -7,7 +7,7 @@ const addNote = (title, body) => {
 
     // Ensure a note with the input title doesn't already exist.
     //const duplicateNotes = notes.filter((note) => note.title === title);
-    const ducplicateNote = notes.find((note) => notes.title === title); // .find() method is better than .filter() because it will stop running as soon as a duplicate is found whereas .filter() will continue looking through the remainder of the array.
+    const duplicateNote = notes.find((note) => note.title === title); // .find() method is better than .filter() because it will stop running as soon as a duplicate is found whereas .filter() will continue looking through the remainder of the array.
 
     if (!duplicateNote) {
         notes.push({
